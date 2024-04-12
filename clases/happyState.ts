@@ -13,6 +13,10 @@ export class happyState extends State{
         console.log('No pasa nada')     
         return 'No pasa nada'   
     }
+
+    getStateName(): string {
+        return 'Happy'
+    }
 }
 
 //Se pone feliz -- No pasa natii --- beep beep beep beep beep

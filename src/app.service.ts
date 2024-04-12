@@ -10,7 +10,7 @@ import { Tamagotchi } from '../clases/tamagotchi';
 @Injectable()
 export class AppService {
   
-  tamagotchi = new Tamagotchi(new hungryState()); //Arranca hambrientooo
+  tamagotchi = new Tamagotchi(new happyState()); //Arranca hambrientooo
 
   setState(stimuli: string): string {
     let response
@@ -27,5 +27,14 @@ export class AppService {
       response = 'Estimulo invalido'
     }
     return response
+  }
+
+  setName(name:string): string{
+    return this.tamagotchi.setName(name);
+  }
+
+  getState(): string{
+    console.log('Entro aca y devuelve: ' + this.tamagotchi.currentState.getStateName())
+    return this.tamagotchi.currentState.getStateName();
   }
 }

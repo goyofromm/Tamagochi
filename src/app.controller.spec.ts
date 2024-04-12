@@ -5,8 +5,8 @@ import { AppService } from './app.service';
 import { Tamagotchi } from '../clases/tamagotchi';
 import { hungryState } from '../clases/hungryState';
 import { sadState } from '../clases/sadState';
-import { thirstyState } from 'clases/thirstyState';
-import { happyState } from 'clases/happyState';
+import { thirstyState } from '../clases/thirstyState';
+import { happyState } from '../clases/happyState';
 
 describe('AppController', () => {
   let appController: AppController;

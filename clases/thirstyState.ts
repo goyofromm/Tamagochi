@@ -3,6 +3,7 @@ import { State } from "./state";
 import { Tamagotchi } from "./tamagotchi";
 import { happyState } from "./happyState";
 export class thirstyState extends State{
+    public name = 'Thirsty'
     feed(){
         console.log('No pasa nada')
         return 'No pasa nada'
@@ -17,5 +18,9 @@ export class thirstyState extends State{
     cuddle(){
         console.log('No pasa nada')
         return 'No pasa nada'
+    }
+
+    getStateName(): string {
+        return 'Thirsty'
     }
 }
