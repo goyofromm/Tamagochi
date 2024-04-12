@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { hungryState } from 'clases/hungryState';
-import { sadState } from 'clases/sadState';
-import { thirstyState } from 'clases/thirstyState';
-import { happyState } from 'clases/happyState';
-import { Tamagotchi } from 'clases/tamagotchi';
+import { hungryState } from '../clases/hungryState';
+import { sadState } from '../clases/sadState';
+import { thirstyState } from '../clases/thirstyState';
+import { happyState } from '../clases/happyState';
+import { Tamagotchi } from '../clases/tamagotchi';
 
 
 @Injectable()

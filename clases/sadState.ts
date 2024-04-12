@@ -6,14 +6,17 @@ import { happyState } from "./happyState";
 export class sadState extends State{
     feed(){
      console.log('Beep, Beep - Vomita'); 
+     return 'Beep, Beep - Vomita'
     }
 
     giveWater(){
         console.log('Beep, Beep, Beep - Tilda display');
+        return 'Beep, Beep, Beep - Tilda display'
     }
 
     cuddle(tamagochi: Tamagotchi){
         tamagochi.changeState(new happyState());
-        console.log('Se pone feliz!'); 
+        console.log('Se pone feliz'); 
+        return 'Se pone feliz'
     }
 }

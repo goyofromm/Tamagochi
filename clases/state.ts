@@ -2,7 +2,7 @@
 import { Tamagotchi } from './tamagotchi';
 
 export abstract class State {
-  abstract feed(tamagotchi: Tamagotchi): void;
-  abstract giveWater(tamagotchi: Tamagotchi): void;
-  abstract cuddle(tamagotchi: Tamagotchi): void;
+  abstract feed(tamagotchi: Tamagotchi): string;
+  abstract giveWater(tamagotchi: Tamagotchi): string;
+  abstract cuddle(tamagotchi: Tamagotchi): string;
 }

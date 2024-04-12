@@ -13,16 +13,16 @@ export class Tamagotchi{
         this.currentState = newState
     }
 
-    feed(){
-        this.currentState.feed(this)
+    feed() : string{
+        return this.currentState.feed(this)
     }
 
     giveWater(){
-        this.currentState.giveWater(this)
+        return this.currentState.giveWater(this)
     }
 
     cuddle(){
-        this.currentState.cuddle(this)
+        return this.currentState.cuddle(this)
     }
 
 }

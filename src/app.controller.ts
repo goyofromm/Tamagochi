@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(public appService: AppService) {}
 
   @Get(':stimuli')
   setStimuli(
