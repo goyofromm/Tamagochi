@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+15+Charted&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Tamagotchi</title>
+</head>
+<body>
+    <section class="flexContainer">
+        <div id="background-wrap">
+            <div class="x1">
+                <div class="cloud"></div>
+            </div>
+        
+            <div class="x2">
+                <div class="cloud"></div>
+            </div>
+        
+            <div class="x3">
+                <div class="cloud"></div>
+            </div>
+        
+            <div class="x4">
+                <div class="cloud"></div>
+            </div>
+        
+            <div class="x5">
+                <div class="cloud"></div>
+            </div>
+        </div>
+        <div class="box">
+            <div class=" title">
+                <input type="text" id="nameInput" value="Tamagotchi" disabled style="text-align: center;" maxlength="10"></input>
+                <button id="btnChangeName">✍️</button>
+            </div>
+            <label id="statusMessage">
+                Tu amigo está <label id="dataLabel">Feliz</label>
+            </label>
+        </div>
+
+        <div class="box boxImg">
+           <img src="images/giphy.gif" alt="">
+        </div>
+
+        <div class="box">
+            <button id="btnGetStatus">Ver estado</button>
+        </div>
+
+        <div class="box btnStimuli">
+            <button class="btnStm" id="btnFeed">🍔</button>
+            <button class="btnStm" id="btnCuddle">❤️</button>
+            <button class="btnStm" id="btnDrink">💧</button>
+        </div>
+    </section>
+
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,21 +1,21 @@
 /* eslint-disable prettier/prettier */
 import { State } from "./state";
 export class happyState extends State{
-    feed(): string{
+    feed(): any{
         console.log('No pasa nada')    
-        return 'No pasa nada'    
+        return { Status: 'Feliz' }
     }
-    giveWater(): string{      
+    giveWater(): any{      
         console.log('Beep beep beep beep beep')        
-        return 'Beep beep beep beep beep'
+        return { Status: 'Feliz' }
     }
-    cuddle(): string{        
+    cuddle(): any{        
         console.log('No pasa nada')     
-        return 'No pasa nada'   
+        return { Status: 'Feliz' }
     }
 
-    getStateName(): string {
-        return 'Happy'
+    getStateName(): any {
+        return { Status: 'Feliz' };
     }
 }
 

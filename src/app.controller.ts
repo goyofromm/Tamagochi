@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Param, Put } from '@nestjs/common';
+
 import { AppService } from './app.service';
 //import { link } from 'fs';
 //import { Stimuli } from '../clases/stimuli';
@@ -10,7 +11,7 @@ export class AppController {
 
   @Get('/tam/state')
   getState() : string{
-    return this.appService.getState();
+    return this.appService.getState() 
   }
 
   @Get(':stimuli')
@@ -19,7 +20,7 @@ export class AppController {
   ): string {
     const response = this.appService.setState(stimuli)
     return response
-  }
+  } 
 
   @Put(':name')
   setName(

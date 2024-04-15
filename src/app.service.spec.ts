@@ -23,19 +23,19 @@ describe('AppController', () => {
 
 
   describe('HungryState', () => {
-    it('should return "Se pone Feliz"', () => {
+    it('should return "Feliz"', () => {
       appService.tamagotchi = new Tamagotchi(new hungryState()); 
-      expect(appService.setState('Feed')).toBe('Se pone feliz');
+      expect(appService.setState('Feed')).toStrictEqual({Status:"Feliz"});
     });
 
-    it('should return "No pasa nada"', () => {
+    it('should return "Hambriento"', () => {
         appService.tamagotchi = new Tamagotchi(new hungryState()); 
-        expect(appService.setState('Cuddle')).toBe('No pasa nada');
+        expect(appService.setState('Cuddle')).toStrictEqual({Status:"Hambriento"});
     });
 
-    it('should return "No pasa nada"', () => {
+    it('should return "Hambriento"', () => {
         appService.tamagotchi = new Tamagotchi(new hungryState()); 
-        expect(appService.setState('giveWater')).toBe('No pasa nada');
+        expect(appService.setState('giveWater')).toStrictEqual({Status:"Hambriento"});
     });
 
     it('should return "Estimulo invalido"', () => {
@@ -46,19 +46,19 @@ describe('AppController', () => {
 
 
   describe('SadState', () => {
-    it('should return "Se pone Feliz"', () => {
+    it('should return "Feliz"', () => {
       appService.tamagotchi = new Tamagotchi(new sadState()); 
-      expect(appService.setState('Cuddle')).toBe('Se pone feliz');
+      expect(appService.setState('Cuddle')).toStrictEqual({Status:"Feliz"});
     });
 
-    it('should return "Beep, Beep - Vomita"', () => {
+    it('should return "Triste"', () => {
         appService.tamagotchi = new Tamagotchi(new sadState()); 
-        expect(appService.setState('Feed')).toBe('Beep, Beep - Vomita');
+        expect(appService.setState('Feed')).toStrictEqual({Status:"Triste"});
     });
 
-    it('should return "Beep, Beep, Beep - Tilda display"', () => {
+    it('should return "Triste"', () => {
         appService.tamagotchi = new Tamagotchi(new sadState()); 
-        expect(appService.setState('giveWater')).toBe('Beep, Beep, Beep - Tilda display');
+        expect(appService.setState('giveWater')).toStrictEqual({Status:"Triste"});
     });
 
     it('should return "Estimulo invalido"', () => {
@@ -69,19 +69,19 @@ describe('AppController', () => {
   });
 
   describe('HappyState', () => {
-    it('should return "No pasa nada"', () => {
+    it('should return "Feliz"', () => {
       appService.tamagotchi = new Tamagotchi(new happyState()); 
-      expect(appService.setState('Feed')).toBe('No pasa nada');
+      expect(appService.setState('Feed')).toStrictEqual({Status:"Feliz"});
     });
 
-    it('should return "Beep beep beep beep beep"', () => {
+    it('should return "Feliz"', () => {
         appService.tamagotchi = new Tamagotchi(new happyState()); 
-        expect(appService.setState('giveWater')).toBe('Beep beep beep beep beep');
+        expect(appService.setState('giveWater')).toStrictEqual({Status:"Feliz"});
     });
 
-    it('should return "No pasa nada"', () => {
+    it('should return "Feliz"', () => {
         appService.tamagotchi = new Tamagotchi(new happyState()); 
-        expect(appService.setState('cuddle')).toBe('No pasa nada');
+        expect(appService.setState('cuddle')).toStrictEqual({Status:"Feliz"});
     });
 
     it('should return "Estimulo invalido"', () => {
@@ -92,19 +92,19 @@ describe('AppController', () => {
   });
 
   describe('thirstyState', () => {
-    it('should return "No pasa nada"', () => {
+    it('should return "Sediento"', () => {
       appService.tamagotchi = new Tamagotchi(new thirstyState()); 
-      expect(appService.setState('feed')).toBe('No pasa nada');
+      expect(appService.setState('feed')).toStrictEqual({Status:"Sediento"});
     });
 
-    it('should return "Se pone feliz"', () => {
+    it('should return "Feliz"', () => {
         appService.tamagotchi = new Tamagotchi(new thirstyState()); 
-        expect(appService.setState('giveWater')).toBe('Se pone feliz');
+        expect(appService.setState('giveWater')).toStrictEqual({Status:"Feliz"});
     });
 
-    it('should return "No pasa nada"', () => {
+    it('should return "Sediento"', () => {
         appService.tamagotchi = new Tamagotchi(new thirstyState()); 
-        expect(appService.setState('cuddle')).toBe('No pasa nada');
+        expect(appService.setState('cuddle')).toStrictEqual({Status:"Sediento"});
     });
 
     it('should return "Estimulo invalido"', () => {

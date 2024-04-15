@@ -5,23 +5,23 @@ import { happyState } from "./happyState";
 
 export class sadState extends State{
     public name = 'Sad'
-    feed(){
+    feed():any{
      console.log('Beep, Beep - Vomita'); 
-     return 'Beep, Beep - Vomita'
+     return { Status: "Triste" }
     }
 
-    giveWater(){
+    giveWater() : any{
         console.log('Beep, Beep, Beep - Tilda display');
-        return 'Beep, Beep, Beep - Tilda display'
+        return { Status: "Triste" }
     }
 
-    cuddle(tamagochi: Tamagotchi){
+    cuddle(tamagochi: Tamagotchi): any{ 
         tamagochi.changeState(new happyState());
         console.log('Se pone feliz'); 
-        return 'Se pone feliz'
+        return { Status: 'Feliz' }
     }
 
-    getStateName(): string {
-        return 'Sad'
+    getStateName(): any {
+        return { Status: "Triste" }
     }
 }

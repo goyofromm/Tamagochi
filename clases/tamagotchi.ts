@@ -21,7 +21,7 @@ export class Tamagotchi {
   public setName(name : string): string{
     this.name = name
     console.log("Tu nuevo nombre de tamagotchi es " + name)
-    return 'Your tamagotchi name is: ' + name    
+    return 'Tu nuevo nombre de tamagotchi es: ' + name    
   } 
 
   public changeState(newState: State) {
@@ -64,15 +64,20 @@ export class Tamagotchi {
     this.timer = setInterval(() => {
       if (this.currentState instanceof happyState) {
         this.changeState(new hungryState());
+        this.currentState.getStateName()
       } else if (this.currentState instanceof hungryState) {
         this.changeState(new thirstyState());
+        this.currentState.getStateName()
       } else if (this.currentState instanceof thirstyState) {
         this.changeState(new sadState());
+        this.currentState.getStateName()
       } else {
         clearInterval(this.timer);
         console.log(`${this.name} ha muerto :(`);
         process.exit()
       }
-    }, 10000);
+    }, 5000); 
   }
+
+  
 }
