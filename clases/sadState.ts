@@ -2,6 +2,7 @@
 import { State } from "./state";
 import { Tamagotchi } from "./tamagotchi";
 import { happyState } from "./happyState";
+import { deadState } from "./deadState";
 
 export class sadState extends State{
     public name = 'Sad'
@@ -26,7 +27,6 @@ export class sadState extends State{
     }
 
     changeState(): State{
-        console.log(`Tu tamagotchi ha muerto :(`);
-        process.exit()
+        return new deadState();
     }
 }

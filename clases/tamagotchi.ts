@@ -4,6 +4,7 @@ import { happyState } from './happyState';
 import { hungryState } from './hungryState';
 import { thirstyState } from './thirstyState';
 import { sadState } from './sadState';
+import { deadState } from './deadState';
 
 export class Tamagotchi {
   private name: string;
@@ -34,9 +35,11 @@ export class Tamagotchi {
       if (this.strikes >= 4) {
         clearInterval(this.timer);
         console.log(`${this.name} ha muerto por acumular 4 strikes :(`);
-        process.exit()
+        this.currentState = newState
+        //process.exit()
       }
-    } else {
+    } 
+    else {
       this.strikes = 0; // Si se pone feliz, reinicia los strikes
       clearInterval(this.timer); // Detener el temporizador actual
       this.startTimer(); // Volver a iniciar el temporizador

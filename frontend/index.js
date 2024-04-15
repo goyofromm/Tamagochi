@@ -1,9 +1,15 @@
 /* eslint-disable prettier/prettier */
+let timer = setInterval(changeStatusLabel, 3000); // cada 3 segundos chequea el estado
+const imgAvatar = document.getElementById("imgAvatar")
+const btnFeed = document.getElementById("btnFeed")
+const btnCuddle = document.getElementById("btnCuddle")
+const btnDrink = document.getElementById("btnDrink")
+const btnRes = document.getElementById("btnRes")
+
 function changeStatusLabel(){
     fetch('http://localhost:3000/tam/state')
         .then(response => {
             // Verificar el estado de la respuesta
-            console.log(response.body)
             if (!response.ok) {
                 throw new Error('Error al obtener el estado');
             }
@@ -12,11 +18,33 @@ function changeStatusLabel(){
         })
         .then(data => {
             // Manejar la respuesta de la solicitud
-            //console.log(data.Status);
-            document.getElementById("dataLabel").innerText = JSON.stringify(data.Status);
+            clearInterval(timer);
+            timer = setInterval(changeStatusLabel, 3000);
+            let lbl = document.getElementById("dataLabel")
+            lbl.innerText = JSON.stringify(data.Status);
+            if (lbl.innerText === '"Feliz"') {
+                imgAvatar.style.backgroundColor = "transparent";
+            } else if (lbl.innerText === '"Hambriento"') {
+                imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.4), rgba(255, 0, 0, 0))";
+            } else if (lbl.innerText === '"Sediento"') {
+                imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.0))";
+            } else if (lbl.innerText === '"Triste"') {
+                imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.0))";
+            } else {
+                clearInterval(timer);
+                imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 0.0))";
+                showToast('Tu tamagotchi ha muerto :(')
+                btnFeed.setAttribute('disabled', true)
+                btnCuddle.setAttribute('disabled', true)
+                btnDrink.setAttribute('disabled', true)
+                btnRes.removeAttribute('hidden')
+            }     
+
         })
         .catch(error => {
             // Manejar errores
+            clearInterval(timer);
+            showToast('Tu tamagotchi ha muerto :(')
             console.error('Error:', error);
         });
 }
@@ -33,12 +61,12 @@ document.getElementById("btnFeed").addEventListener("click", function() {
         .then(data => {
             //console.log(data.Status);
             document.getElementById("dataLabel").innerText = JSON.stringify(data.Status);
+            changeStatusLabel()
+
         })
         .catch(error => {
             console.error('Error:', error);
         });
-
-        changeStatusLabel()
 
 });
 
@@ -54,12 +82,12 @@ document.getElementById("btnCuddle").addEventListener("click", function() {
         .then(data => {
             //console.log(data.Status);
             document.getElementById("dataLabel").innerText = JSON.stringify(data.Status);
+            changeStatusLabel()
+
         })
         .catch(error => {
             console.error('Error:', error);
         });
-
-        changeStatusLabel()
 });
 
 document.getElementById("btnDrink").addEventListener("click", function() {
@@ -74,17 +102,13 @@ document.getElementById("btnDrink").addEventListener("click", function() {
         .then(data => {
             //console.log(data.Status);
             document.getElementById("dataLabel").innerText = JSON.stringify(data.Status);
+            changeStatusLabel()
         })
         .catch(error => {
             console.error('Error:', error);
         });
-
-        changeStatusLabel()
+        
 });
-
-document.getElementById("btnGetStatus").addEventListener("click", function() {
-    changeStatusLabel()
-})
 
 document.addEventListener("DOMContentLoaded", function() {
     const nameInput = document.getElementById('nameInput');
@@ -114,6 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
                 .then(data => {
                     console.log('Nombre cambiado exitosamente:', data);
+                    showToast(data)
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -138,5 +163,5 @@ function showToast(message) {
 
     setTimeout(() => {
         toast.remove();
-    }, 3000); 
+    }, 2500); 
 }
