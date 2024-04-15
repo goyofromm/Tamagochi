@@ -24,4 +24,9 @@ export class sadState extends State{
     getStateName(): any {
         return { Status: "Triste" }
     }
+
+    changeState(): State{
+        console.log(`Tu tamagotchi ha muerto :(`);
+        process.exit()
+    }
 }

@@ -2,6 +2,7 @@
 import { State } from "./state";
 import { Tamagotchi } from "./tamagotchi";
 import { happyState } from "./happyState";
+import { thirstyState } from "./thirstyState";
 export class hungryState extends State{
     public name = 'Hungry'
     feed(tamagochi : Tamagotchi) : any {
@@ -20,5 +21,9 @@ export class hungryState extends State{
 
     getStateName(): any {
         return { Status: 'Hambriento' }
+    }
+
+    changeState(): State{
+        return new thirstyState();
     }
 }

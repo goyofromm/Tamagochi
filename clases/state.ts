@@ -6,4 +6,5 @@ export abstract class State {
   abstract giveWater(tamagotchi: Tamagotchi): string;
   abstract cuddle(tamagotchi: Tamagotchi): string;
   abstract getStateName(): string;
+  abstract changeState(): State;
 }

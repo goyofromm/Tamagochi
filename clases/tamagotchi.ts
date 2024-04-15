@@ -62,7 +62,12 @@ export class Tamagotchi {
 
   private startTimer() {
     this.timer = setInterval(() => {
-      if (this.currentState instanceof happyState) {
+
+      this.changeState(this.currentState.changeState())
+      this.currentState.getStateName()
+
+
+      /*if (this.currentState instanceof happyState) {
         this.changeState(new hungryState());
         this.currentState.getStateName()
       } else if (this.currentState instanceof hungryState) {
@@ -75,7 +80,7 @@ export class Tamagotchi {
         clearInterval(this.timer);
         console.log(`${this.name} ha muerto :(`);
         process.exit()
-      }
+      }*/
     }, 5000); 
   }
 

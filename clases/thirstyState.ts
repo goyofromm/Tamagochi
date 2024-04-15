@@ -2,6 +2,7 @@
 import { State } from "./state";
 import { Tamagotchi } from "./tamagotchi";
 import { happyState } from "./happyState";
+import { sadState } from "./sadState";
 export class thirstyState extends State{
     public name = 'Thirsty'
     feed():any{
@@ -22,5 +23,9 @@ export class thirstyState extends State{
 
     getStateName() : any {
         return { Status: 'Sediento' }
+    }
+
+    changeState(): State{
+        return new sadState();
     }
 }

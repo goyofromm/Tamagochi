@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { State } from "./state";
+import { hungryState } from "./hungryState";
 export class happyState extends State{
     feed(): any{
         console.log('No pasa nada')    
@@ -16,6 +17,10 @@ export class happyState extends State{
 
     getStateName(): any {
         return { Status: 'Feliz' };
+    }
+
+    changeState(): State{
+        return new hungryState();
     }
 }
 
