@@ -9,9 +9,16 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(public appService: AppService) {}
 
-  @Get('/tam/state')
+  /*@Get('/tam/state')
   getState() : string{
     return this.appService.getState() 
+  }*/
+
+  @Get('/tam/timer')
+  timer(){
+    const res = this.appService.tamagotchi.Timer() 
+    console.log("Res: " + res)
+    return res
   }
 
   @Get(':stimuli')
@@ -20,7 +27,7 @@ export class AppController {
   ): string {
     const response = this.appService.setState(stimuli)
     return response
-  } 
+  }
 
   @Put(':name')
   setName(

@@ -1,113 +1,38 @@
 /* eslint-disable prettier/prettier */
-let timer = setInterval(changeStatusLabel, 3000); // cada 3 segundos chequea el estado
-const imgAvatar = document.getElementById("imgAvatar")
+const tTimer = 5000 // cada 5 segundos chequea el estado
+let timer = setInterval(changeStatusLabel, tTimer); 
+//BOTONES
 const btnFeed = document.getElementById("btnFeed")
 const btnCuddle = document.getElementById("btnCuddle")
 const btnDrink = document.getElementById("btnDrink")
 const btnRes = document.getElementById("btnRes")
+//IMAGENES
+const imgAvatar = document.getElementById("imgAvatar")
+const imgCorazones = document.getElementById("imgCorazones")
 
 function changeStatusLabel(){
-    fetch('http://localhost:3000/tam/state')
-        .then(response => {
-            // Verificar el estado de la respuesta
-            if (!response.ok) {
-                throw new Error('Error al obtener el estado');
-            }
-            // Devolver la respuesta como JSON
-            return response.json();
-        })
-        .then(data => {
-            // Manejar la respuesta de la solicitud
-            clearInterval(timer);
-            timer = setInterval(changeStatusLabel, 3000);
-            let lbl = document.getElementById("dataLabel")
-            lbl.innerText = JSON.stringify(data.Status);
-            if (lbl.innerText === '"Feliz"') {
-                imgAvatar.style.backgroundColor = "transparent";
-            } else if (lbl.innerText === '"Hambriento"') {
-                imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.4), rgba(255, 0, 0, 0))";
-            } else if (lbl.innerText === '"Sediento"') {
-                imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.0))";
-            } else if (lbl.innerText === '"Triste"') {
-                imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.0))";
-            } else {
-                clearInterval(timer);
-                imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 0.0))";
-                showToast('Tu tamagotchi ha muerto :(')
-                btnFeed.setAttribute('disabled', true)
-                btnCuddle.setAttribute('disabled', true)
-                btnDrink.setAttribute('disabled', true)
-                btnRes.removeAttribute('hidden')
-            }     
-
-        })
-        .catch(error => {
-            // Manejar errores
-            clearInterval(timer);
-            showToast('Tu tamagotchi ha muerto :(')
-            console.error('Error:', error);
-        });
+    fetchChangeState('tam/timer')
 }
 
 document.getElementById("btnFeed").addEventListener("click", function() {
-    fetch('http://localhost:3000/feed')
-        .then(response => {
-            console.log(response.body)
-            if (!response.ok) {
-                throw new Error('Error al obtener el estado');
-            }
-            return response.json();
-        })
-        .then(data => {
-            //console.log(data.Status);
-            document.getElementById("dataLabel").innerText = JSON.stringify(data.Status);
-            changeStatusLabel()
-
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-
+    fetchChangeState('feed')
 });
 
 document.getElementById("btnCuddle").addEventListener("click", function() {
-    fetch('http://localhost:3000/cuddle')
-        .then(response => {
-            console.log(response.body)
-            if (!response.ok) {
-                throw new Error('Error al obtener el estado');
-            }
-            return response.json();
-        })
-        .then(data => {
-            //console.log(data.Status);
-            document.getElementById("dataLabel").innerText = JSON.stringify(data.Status);
-            changeStatusLabel()
-
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    fetchChangeState('cuddle')
 });
 
 document.getElementById("btnDrink").addEventListener("click", function() {
-    fetch('http://localhost:3000/giveWater')
-        .then(response => {
-            console.log(response.body)
-            if (!response.ok) {
-                throw new Error('Error al obtener el estado');
-            }
-            return response.json();
-        })
-        .then(data => {
-            //console.log(data.Status);
-            document.getElementById("dataLabel").innerText = JSON.stringify(data.Status);
-            changeStatusLabel()
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        
+    fetchChangeState('giveWater')        
+});
+
+document.getElementById("btnRes").addEventListener("click", function() {
+    fetchChangeState('revive')
+
+    btnFeed.removeAttribute('disabled')
+    btnCuddle.removeAttribute('disabled')
+    btnDrink.removeAttribute('disabled')
+    btnRes.setAttribute('hidden', true)
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -164,4 +89,57 @@ function showToast(message) {
     setTimeout(() => {
         toast.remove();
     }, 2500); 
+}
+
+function setStatusLabel(status){
+    let lbl = document.getElementById("dataLabel")
+    if(lbl.innerText != JSON.stringify(status)){
+        lbl.innerText = JSON.stringify(status);
+        clearInterval(timer);
+        timer = setInterval(changeStatusLabel, tTimer);
+    }
+}
+
+function fetchChangeState(control){
+    fetch('http://localhost:3000/' + control)
+    .then(response => {
+        console.log(response.body)
+        if (!response.ok) {
+            throw new Error('Error al obtener el estado');
+        }
+        return response.json();
+    })
+    .then(data => {
+        setStatusLabel(data.Status)
+
+        setBackColor()
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function setBackColor(){
+    let lbl = document.getElementById("dataLabel")
+    if (lbl.innerText === '"Feliz"') {
+        imgAvatar.style.background = "transparent";
+        imgCorazones.removeAttribute('hidden');
+        setTimeout(() => {
+            imgCorazones.setAttribute('hidden', true);
+        }, 2000);
+    } else if (lbl.innerText === '"Hambriento"') {
+        imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.4), rgba(255, 0, 0, 0))";
+    } else if (lbl.innerText === '"Sediento"') {
+        imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.6), rgba(255, 0, 0, 0.0))";
+    } else if (lbl.innerText === '"Triste"') {
+        imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0.0))";
+    } else {
+        clearInterval(timer);
+        imgAvatar.style.background = "radial-gradient(rgba(255, 0, 0, 1), rgba(255, 0, 0, 0.0))";
+        showToast('Tu tamagotchi ha muerto :(')
+        btnFeed.setAttribute('disabled', true)
+        btnCuddle.setAttribute('disabled', true)
+        btnDrink.setAttribute('disabled', true)
+        btnRes.removeAttribute('hidden')
+    }     
 }

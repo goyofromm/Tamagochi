@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { hungryState } from '../clases/hungryState';
-import { sadState } from '../clases/sadState';
-import { thirstyState } from '../clases/thirstyState';
+//import { hungryState } from '../clases/hungryState';
+//import { sadState } from '../clases/sadState';
+//import { thirstyState } from '../clases/thirstyState';
 import { happyState } from '../clases/happyState';
 import { Tamagotchi } from '../clases/tamagotchi';
 
@@ -23,6 +23,9 @@ export class AppService {
     else if(stimuli.toLowerCase() == 'giveWater'.toLowerCase()){
       response = this.tamagotchi.giveWater()
     }
+    else if(stimuli.toLowerCase() == 'revive'.toLowerCase()){
+      response = this.tamagotchi.reviveTamagotchi()
+    }
     else{
       response = 'Estimulo invalido'
     }
@@ -33,8 +36,8 @@ export class AppService {
     return this.tamagotchi.setName(name);
   }
 
-  getState(): string{
+  /*getState(): string{
     return this.tamagotchi.currentState.getStateName()
-  }
+  }*/
 
 }

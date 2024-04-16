@@ -4,10 +4,10 @@ import { Tamagotchi } from "./tamagotchi";
 import { happyState } from "./happyState";
 import { sadState } from "./sadState";
 export class thirstyState extends State{
-    public name = 'Thirsty'
+    public name = 'Sediento'
     feed():any{
         console.log('No pasa nada')
-        return { Status: 'Sediento' }
+        return { Status: this.name }
     }
 
     giveWater(tamagochi: Tamagotchi): any{
@@ -18,11 +18,11 @@ export class thirstyState extends State{
 
     cuddle() : any{
         console.log('No pasa nada')
-        return { Status: 'Sediento' }
+        return { Status: this.name }
     }
 
     getStateName() : any {
-        return { Status: 'Sediento' }
+        return { Status: this.name }
     }
 
     changeState(): State{

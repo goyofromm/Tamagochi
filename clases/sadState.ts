@@ -5,15 +5,15 @@ import { happyState } from "./happyState";
 import { deadState } from "./deadState";
 
 export class sadState extends State{
-    public name = 'Sad'
+    public name = 'Triste'
     feed():any{
      console.log('Beep, Beep - Vomita'); 
-     return { Status: "Triste" }
+     return { Status: this.name }
     }
 
     giveWater() : any{
         console.log('Beep, Beep, Beep - Tilda display');
-        return { Status: "Triste" }
+        return { Status: this.name }
     }
 
     cuddle(tamagochi: Tamagotchi): any{ 
@@ -23,7 +23,7 @@ export class sadState extends State{
     }
 
     getStateName(): any {
-        return { Status: "Triste" }
+        return { Status: this.name }
     }
 
     changeState(): State{

@@ -1,28 +1,26 @@
 /* eslint-disable prettier/prettier */
 import { State } from "./state";
-import { Tamagotchi } from "./tamagotchi";
-import { happyState } from "./happyState";
-import { thirstyState } from "./thirstyState";
+
 export class deadState extends State{
-    public name = 'Dead'
+    public name = 'Muerto'
     feed() : any {
         console.log('No pasa nada')        
-        return { Status: 'Muerto' }
+        return { Status: this.name }
     }
     giveWater(): any{
         console.log('No pasa nada')        
-        return { Status: 'Muerto' }
+        return { Status: this.name }
     }
     cuddle():any{
         console.log('No pasa nada')        
-        return { Status: 'Muerto' }
+        return { Status: this.name }
     }
 
     getStateName(): any {
-        return { Status: 'Muerto' }
+        return { Status: this.name }
     }
 
     changeState() : any{
-        return "Esta muerto";
+      return this
     }
 }
