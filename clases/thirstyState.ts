@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { State } from "./state";
-import { Tamagotchi } from "./tamagotchi";
+import { Tamagotchi } from "./tamagotchi.entity";
 import { happyState } from "./happyState";
 import { sadState } from "./sadState";
 export class thirstyState extends State{

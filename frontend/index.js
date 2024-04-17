@@ -6,9 +6,46 @@ const btnFeed = document.getElementById("btnFeed")
 const btnCuddle = document.getElementById("btnCuddle")
 const btnDrink = document.getElementById("btnDrink")
 const btnRes = document.getElementById("btnRes")
+const btnLogin = document.getElementById("btnLogin")
+const btnRegister = document.getElementById("btnRegister")
 //IMAGENES
 const imgAvatar = document.getElementById("imgAvatar")
 const imgCorazones = document.getElementById("imgCorazones")
+//SECCIONES
+const secLogin = document.getElementById("loginSection")
+const secUsuario = document.getElementById("tamagotchiSection")
+//INPUT
+const userInput = document.getElementById("usernameLogin")
+const passInput = document.getElementById("passwordLogin")
+const repPassInput = document.getElementById("repPasswordLogin")
+//TEXTOS
+const pRegister = document.getElementById("pRegister") //<p>
+const spanRegister = document.getElementById("spanRegister") //<span>
+const titleIndex = document.getElementById("titleIndex") //<h1>
+
+btnLogin.addEventListener('click', function() {
+    if (userInput.value.trim().length > 0 && passInput.value.trim().length > 0){
+        secLogin.style.display = "none"
+        secUsuario.style.display = "flex"
+    }
+    else{
+        showToast("Complete los datos")
+    }
+})
+
+titleIndex.addEventListener('click', function(){
+    repPassInput.hidden = true
+    btnRegister.hidden = true
+    btnLogin.hidden = false
+    pRegister.hidden = false        
+})
+
+spanRegister.addEventListener('click', function(){
+    repPassInput.hidden = false
+    btnRegister.hidden = false
+    btnLogin.hidden = true
+    pRegister.hidden = true    
+})
 
 function changeStatusLabel(){
     fetchChangeState('tam/timer')
@@ -53,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const newName = nameInput.value.trim();
                 
                 fetch(`http://localhost:3000/${newName}`, {
-                    method: 'PUT',
+                    method: 'POST',
                 })
                 .then(response => {
                     if (!response.ok) {

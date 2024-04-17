@@ -2,22 +2,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Tamagotchi } from '../clases/tamagotchi';
+import { Tamagotchi } from '../clases/tamagotchi.entity';
 import { hungryState } from '../clases/hungryState';
 import { sadState } from '../clases/sadState';
 import { thirstyState } from '../clases/thirstyState';
 import { happyState } from '../clases/happyState';
+import { deadState } from '../clases/deadState';
+import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('AppController', () => {
   let appController: AppController;
+  let appService: AppService
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [AppService,            
+        {
+          provide: getRepositoryToken(Tamagotchi),
+          useClass: Repository,
+        }],
     }).compile();
 
     appController = app.get<AppController>(AppController);
+    appService = app.get<AppService>(AppService);
   });
 
   describe('HungryState', () => {
@@ -110,4 +119,55 @@ describe('AppController', () => {
         expect(appController.setStimuli('buscando money')).toBe('Estimulo invalido');
     });
   });
+
+  describe('deadState', () => {
+    it('should return "Muerto"', () => {
+      appController.appService.tamagotchi = new Tamagotchi(new deadState()); 
+      expect(appController.setStimuli('feed')).toStrictEqual({Status:"Muerto"});
+    });
+
+    it('should return "Muerto"', () => {
+      appController.appService.tamagotchi = new Tamagotchi(new deadState()); 
+        expect(appController.setStimuli('giveWater')).toStrictEqual({Status:"Muerto"});
+    });
+
+    it('should return "Muerto"', () => {
+      appController.appService.tamagotchi = new Tamagotchi(new deadState()); 
+        expect(appController.setStimuli('cuddle')).toStrictEqual({Status:"Muerto"});
+    });
+
+    it('should return "Feliz"', () => {
+        appController.appService.tamagotchi = new Tamagotchi(new deadState()); 
+        expect(appController.setStimuli('revive')).toStrictEqual({Status:"Feliz"});
+    });
+
+
+    it('should return "Estimulo invalido"', () => {
+        appController.appService.tamagotchi = new Tamagotchi(new deadState()); 
+        expect(appController.setStimuli('buscando money')).toBe('Estimulo invalido');
+    });
+  });
+
+  describe('setName', () => {
+    it('should call setName and return response', async () => {
+      const name = 'Testing';
+      const expectedResponse = 'Tu nuevo nombre de tamagotchi es: Testing';
+      jest.spyOn(appService, 'setName').mockResolvedValue(expectedResponse);
+      
+      const result = await appController.setName(name);
+      
+      expect(result).toEqual(expectedResponse);
+    });
+  });
+
+  describe('timer', () => {
+    it('should return Feliz', () => {
+       expect(appController.timer()).toStrictEqual({Status:"Hambriento"});
+       expect(appController.timer()).toStrictEqual({Status:"Sediento"});
+       expect(appController.timer()).toStrictEqual({Status:"Triste"});
+       expect(appController.timer()).toStrictEqual({Status:"Muerto"});
+    });
+  });
+
+
 });

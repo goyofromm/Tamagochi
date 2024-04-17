@@ -1,15 +1,19 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 //import { hungryState } from '../clases/hungryState';
 //import { sadState } from '../clases/sadState';
 //import { thirstyState } from '../clases/thirstyState';
 import { happyState } from '../clases/happyState';
-import { Tamagotchi } from '../clases/tamagotchi';
+import { Tamagotchi } from '../clases/tamagotchi.entity';
+import { Repository } from 'typeorm';
 
 
 @Injectable()
 export class AppService {
   
+  constructor(@InjectRepository(Tamagotchi) public tamRepository: Repository<Tamagotchi>) {}
+
   tamagotchi = new Tamagotchi(new happyState()); //Arranca feliz
 
   setState(stimuli: string): string {
@@ -32,12 +36,12 @@ export class AppService {
     return response
   }
 
-  setName(name:string): string{
+  //El testing me da error, y creo que es aca
+  async setName(name: string): Promise<string> {
+
+    //await this.tamRepository.update({ id: 1 }, { name: name });
     return this.tamagotchi.setName(name);
   }
 
-  /*getState(): string{
-    return this.tamagotchi.currentState.getStateName()
-  }*/
 
 }

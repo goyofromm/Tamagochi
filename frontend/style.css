@@ -23,12 +23,55 @@ body {
     overflow-x: hidden;
 }
 
+.login{
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login input{
+    border: none;
+    border-bottom: 1px solid white;
+    margin: 20px 20px;    
+    color: white;
+    outline: none;
+    font-size: xx-large;
+}
+
+.login input:active{
+    color: red;
+    border-bottom-color: blue;
+    transition: 0.2s;
+    outline: none;
+}
+
+.login p{
+    margin-top: 10px;
+    color: black;
+}
+
+.login p span{
+    text-decoration: none;
+    color: rgb(3, 3, 143);
+    font-weight: bolder;
+    font-size: 18px;
+    position: relative; 
+    transition: 0.3s;
+}
+
+.login p span:hover{
+    text-decoration: underline solid 3px;
+    cursor: pointer;
+}
+
 .flexContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    opacity: 0.8;
     background-size: 20px 20px;
 }
 
@@ -39,6 +82,14 @@ body {
     font-size: large;
     font-family: "Kanit", sans-serif;
     margin: 5px;
+}   
+
+#btnRegister{
+    background-color: #7a82f5;
+}
+
+#btnRegister:hover{
+    background-color: #bbbef0;
 }
 
 #btnChangeName {
@@ -69,9 +120,14 @@ body {
     font-size: x-large;
 }
 
+#tamagotchiSection{
+    display: none;
+}
+
 .btnStm:hover {
     transition: .2s;
     background-color: #3AA7F0;
+    cursor: pointer;
 }
 
 .btnStm:disabled:hover{
@@ -98,9 +154,18 @@ body {
     margin-bottom: 10px;
 }
 
-.title h1{
+#titleIndex{
     padding: 10px;
+    font-size: 100px;
 }
+
+#titleIndex:hover{
+    color: #3A47F0;
+    font-size: 103px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
 
 .title button {
    padding: 10px;

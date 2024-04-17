@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Tamagotchi } from './tamagotchi';
+import { Tamagotchi } from './tamagotchi.entity';
 
 export abstract class State {
   abstract name : string

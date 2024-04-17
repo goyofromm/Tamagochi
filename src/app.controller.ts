@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Put } from '@nestjs/common';
+import { Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Tamagotchi } from 'clases/tamagotchi.entity';
 
 import { AppService } from './app.service';
 //import { link } from 'fs';
@@ -17,7 +18,6 @@ export class AppController {
   @Get('/tam/timer')
   timer(){
     const res = this.appService.tamagotchi.Timer() 
-    console.log("Res: " + res)
     return res
   }
 
@@ -29,11 +29,17 @@ export class AppController {
     return response
   }
 
-  @Put(':name')
-  setName(
+  @Post(':name')
+  async setName(
     @Param('name') name: string
-  ): string {
-    const response = this.appService.setName(name)
+  ): Promise<string> {
+    const response = await this.appService.setName(name)
+    return response
+  }
+
+  @Post('/register')
+  async setName(): Promise<string> {
+    const response = await this.appService.setName(name)
     return response
   }
 }

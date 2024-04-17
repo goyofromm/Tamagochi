@@ -10,28 +10,47 @@
     <title>Tamagotchi</title>
 </head>
 <body>
-    <section class="flexContainer">
-        <div id="background-wrap">
-            <div class="x1">
-                <div class="cloud"></div>
-            </div>
-        
-            <div class="x2">
-                <div class="cloud"></div>
-            </div>
-        
-            <div class="x3">
-                <div class="cloud"></div>
-            </div>
-        
-            <div class="x4">
-                <div class="cloud"></div>
-            </div>
-        
-            <div class="x5">
-                <div class="cloud"></div>
-            </div>
+    <div id="background-wrap">
+        <div class="x1">
+            <div class="cloud"></div>
         </div>
+    
+        <div class="x2">
+            <div class="cloud"></div>
+        </div>
+    
+        <div class="x3">
+            <div class="cloud"></div>
+        </div>
+    
+        <div class="x4">
+            <div class="cloud"></div>
+        </div>
+    
+        <div class="x5">
+            <div class="cloud"></div>
+        </div>
+    </div>
+
+    <section class="flexContainer" id="loginSection">
+        <div class="title box">
+            <h1 id="titleIndex">BIENVENIDO</h1>
+        </div>
+
+        <div class="login">
+            <input type="text" placeholder="Usuario" id="usernameLogin">            
+            <input type="password" placeholder="Contraseña" id="passwordLogin">
+            <input type="password" placeholder="Repetir Contraseña" id="repPasswordLogin" hidden>
+            <button id="btnLogin" class="btnStm">Ingresar</button>
+            <button id="btnRegister" class="btnStm" hidden>Registrar</button>
+            <p id="pRegister">No tenes usuario ? <span id="spanRegister">Registrate</span></p>
+        </div>
+        
+    </section>
+
+    
+    <section class="flexContainer" id="tamagotchiSection">
+        
         <div class="box">
             <div class=" title">
                 <input type="text" id="nameInput" value="Tamagotchi" disabled style="text-align: center;" maxlength="10"></input>

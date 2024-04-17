@@ -1,25 +1,34 @@
 /* eslint-disable prettier/prettier */
 import { State } from './state';
 import { happyState } from './happyState';
-//import { hungryState } from './hungryState';
-//import { thirstyState } from './thirstyState';
-//import { sadState } from './sadState';
-//import { deadState } from './deadState';
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
 
+@Entity({name: 'tamagotchi'})
 export class Tamagotchi {
-  private name: string;
-  public currentState: State;
+  
+  @PrimaryGeneratedColumn()
+  id: number
 
-  constructor(newState: State) {
+  @Column({unique: true})
+  name: string;
+
+  @Column({type: 'varchar'})
+  currentState: State;
+
+  @Column()
+  dateCreated: Date;
+
+  @Column({default: 3})
+  lifes: number;
+
+  constructor(newState: State, ) {
     this.currentState = newState;
     this.name = 'Tamagotchi'
   }
 
-  public setName(name : string): string{
-    this.name = name
-    console.log("Tu nuevo nombre de tamagotchi es " + name)
-    return 'Tu nuevo nombre de tamagotchi es: ' + name    
-  } 
+  public getName() : string{
+    return this.name
+  }
 
   public changeState(newState: State) {
     if (newState === this.currentState) {
@@ -52,5 +61,11 @@ export class Tamagotchi {
       this.changeState(this.currentState.changeState())
       return this.currentState.getStateName()
   }
-  
+
+  public setName(name : string): string{
+    this.name = name
+    console.log("Tu nuevo nombre de tamagotchi es " + name)
+    return 'Tu nuevo nombre de tamagotchi es: ' + name    
+  } 
+
 }
