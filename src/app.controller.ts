@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { Tamagotchi } from 'clases/tamagotchi.entity';
 
 import { AppService } from './app.service';
@@ -38,8 +38,7 @@ export class AppController {
   }
 
   @Post('/register')
-  async setName(): Promise<string> {
-    const response = await this.appService.setName(name)
-    return response
+  async createrUser(@Body() newUser) {
+
   }
 }
