@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 const tTimer = 5000 // cada 5 segundos chequea el estado
-let timer = setInterval(changeStatusLabel, tTimer); 
+let timer /*= setInterval(changeStatusLabel, tTimer); */
 //BOTONES
 const btnFeed = document.getElementById("btnFeed")
 const btnCuddle = document.getElementById("btnCuddle")
@@ -8,6 +8,7 @@ const btnDrink = document.getElementById("btnDrink")
 const btnRes = document.getElementById("btnRes")
 const btnLogin = document.getElementById("btnLogin")
 const btnRegister = document.getElementById("btnRegister")
+const btnPlus = document.querySelectorAll('.imgPlus');
 //IMAGENES
 const imgAvatar = document.getElementById("imgAvatar")
 const imgCorazones = document.getElementById("imgCorazones")
@@ -25,19 +26,108 @@ const titleIndex = document.getElementById("titleIndex") //<h1>
 
 btnLogin.addEventListener('click', function() {
     if (userInput.value.trim().length > 0 && passInput.value.trim().length > 0){
-        secLogin.style.display = "none"
-        secUsuario.style.display = "flex"
+        const headers = new Headers();
+        headers.append('user', userInput.value.trim());
+        headers.append('password', passInput.value.trim());
+        fetch(`http://localhost:3000/user/login`, {
+            headers: headers //Le mando el username y el password como headers
+        })
+         .then(response => {
+             if (!response.ok) {
+                 throw new Error('Error al cambiar el nombre');
+             }
+             return response.text();
+         })
+         .then(data => {
+            if(data == 0){
+                console.log('Ingreso correcto');
+                secLogin.style.display = "none"
+                secUsuario.style.display = "flex" //Muestra el section de los tamagotchi del usuario
+            }
+            else if(data == 1){ //Ingreso correcto pero no tiene tamagotchis
+                console.log('Ingreso correcto:', data);
+                secLogin.style.display = "none"
+                secUsuario.style.display = "flex" //Muestra el section de los tamagotchi del usuario
+            }
+            else{
+                showToast("El usuario o la contraseña son incorrectos")
+            }
+         })
+         .catch(error => {
+             console.error('Error:', error);
+         });
     }
     else{
         showToast("Complete los datos")
     }
 })
 
-titleIndex.addEventListener('click', function(){
+btnRegister.addEventListener('click', function(){
+    if(userInput.value.trim().length > 0 && passInput.value.trim().length > 0 && repPassInput.value.trim().length > 0){
+        if(passInput.value.trim() == repPassInput.value.trim()){
+            const newUser = {
+                name: userInput.value.trim(),
+                password: passInput.value.trim()
+            }
+        
+            fetch(`http://localhost:3000/register`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json' // Especifica el tipo de contenido como JSON
+                     },
+                    body: JSON.stringify(newUser) // Convierte el objeto newUser a JSON
+                })
+                 .then(response => {
+                     if (!response.ok) {
+                         throw new Error('Error al cambiar el nombre');
+                     }
+                     return response.text();
+                 })
+                 .then(data => {
+                     console.log('Usuario creado exitosamente:', data);
+                     showToast('Se creo el usuario ' + newUser.name + ' exitosamente')
+                     backToLogin()
+                 })
+                 .catch(error => {
+                     console.error('Error:', error);
+            });
+        }
+        else{
+            showToast("Las contraseñas no coinciden")    
+        }
+    }
+    else{
+        showToast("Complete los datos")
+    }
+})
+
+btnPlus.forEach(function(item) {
+    item.addEventListener('click', function() {
+        const src = item.src;
+        if( src.substring(src.length - 9) == "/plus.png"){ //Si esta la imagen de +, entonces me abre para crear un tamagotchi
+            showToast("ASD")
+        }
+        //Si hay un tamagotchi no hace nada
+    });
+});
+
+btnPlus.addEventListener('click', function() {
+    showToast("ASD")
+})
+
+function backToLogin(){
     repPassInput.hidden = true
     btnRegister.hidden = true
     btnLogin.hidden = false
-    pRegister.hidden = false        
+    pRegister.hidden = false    
+    
+    repPassInput.value = ''
+    passInput.value = ''
+    userInput.value = ''
+}
+
+titleIndex.addEventListener('click', function(){
+    backToLogin()
 })
 
 spanRegister.addEventListener('click', function(){
@@ -52,19 +142,19 @@ function changeStatusLabel(){
 }
 
 document.getElementById("btnFeed").addEventListener("click", function() {
-    fetchChangeState('feed')
+    fetchChangeState('state/feed')
 });
 
 document.getElementById("btnCuddle").addEventListener("click", function() {
-    fetchChangeState('cuddle')
+    fetchChangeState('state/cuddle')
 });
 
 document.getElementById("btnDrink").addEventListener("click", function() {
-    fetchChangeState('giveWater')        
+    fetchChangeState('state/giveWater')        
 });
 
 document.getElementById("btnRes").addEventListener("click", function() {
-    fetchChangeState('revive')
+    fetchChangeState('state/revive')
 
     btnFeed.removeAttribute('disabled')
     btnCuddle.removeAttribute('disabled')
@@ -90,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const newName = nameInput.value.trim();
                 
                 fetch(`http://localhost:3000/${newName}`, {
-                    method: 'POST',
+                    method: 'PUT',
                 })
                 .then(response => {
                     if (!response.ok) {

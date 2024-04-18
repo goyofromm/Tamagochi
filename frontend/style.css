@@ -41,10 +41,9 @@ body {
     font-size: xx-large;
 }
 
-.login input:active{
-    color: red;
+.login input:focus{
     border-bottom-color: blue;
-    transition: 0.2s;
+    transition: 0.7s;
     outline: none;
 }
 
@@ -95,6 +94,7 @@ body {
 #btnChangeName {
     padding: 5px;
     background-color: #0f693c;
+    cursor: pointer;
 }
 
 #btnChangeName:hover {
@@ -139,10 +139,9 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    max-width: 1200px;
     margin: 5px;
-    padding: 5px;
+    width: 100%;
+    position: relative;
 }
 
 .title {
@@ -183,13 +182,6 @@ body {
     margin: 0px 40px;
 }
 
-.boxImg {
-    height: 35vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
 .boxImg img {
     max-width: 100%;
     max-height: 100%; 
@@ -216,6 +208,94 @@ body {
   right: 0;
   top: 0;
   z-index: -1;
+}
+
+/* SLIDER */
+
+.boxImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxImg input{
+    visibility: hidden;
+    display: none;
+}
+
+.buttons{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;    
+    gap: 10px;
+}
+
+.buttons label{
+    width: 20px;
+    height: 20px;
+    background-color: rgb(179, 139, 11);
+    opacity: 0.5;
+    cursor: pointer;
+    z-index: 1;
+    transition: 0.3s ease-in-out;    
+}
+
+.buttons label:hover{
+    scale: 1.2;
+    opacity: 1;
+}
+
+.content div{
+    width: 100vw;
+    height: 250px;
+}
+
+.content img{
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.content img:hover{
+   scale: 1.1;
+}
+
+.boxImg input:nth-child(1):checked ~ .buttons label:nth-child(1),
+.boxImg input:nth-child(2):checked ~ .buttons label:nth-child(2),
+.boxImg input:nth-child(3):checked ~ .buttons label:nth-child(3)
+{
+    opacity: 1;
+    scroll-margin: 1.2;
+    width: 40px;
+}
+
+.firstSlide, .secondSlide, .thirdSlide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    position: relative;
+    width: 300vw;
+    height: 30vw;
+    transition: 0.3s ease-in-out;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxImg input:nth-child(1):checked ~ .content{
+    left: 100vw;
+}
+.boxImg input:nth-child(2):checked ~ .content{
+    left: 0vw;
+}
+.boxImg input:nth-child(3):checked ~ .content{
+    left: -100vw;
 }
 
 /* KEYFRAMES */
@@ -247,7 +327,7 @@ body {
     }
 }
 
-/* ANIMATIONS */
+/* ANIMATIONS CLOUDS */
 
 .x1 {
   -webkit-animation: animateCloud 35s linear infinite;

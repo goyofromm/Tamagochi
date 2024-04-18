@@ -38,9 +38,9 @@
         </div>
 
         <div class="login">
-            <input type="text" placeholder="Usuario" id="usernameLogin">            
-            <input type="password" placeholder="Contraseña" id="passwordLogin">
-            <input type="password" placeholder="Repetir Contraseña" id="repPasswordLogin" hidden>
+            <input type="text" placeholder="Usuario" id="usernameLogin" autocomplete="off">            
+            <input type="password" placeholder="Contraseña" id="passwordLogin" autocomplete="off">
+            <input type="password" placeholder="Repetir Contraseña" id="repPasswordLogin" hidden autocomplete="off">
             <button id="btnLogin" class="btnStm">Ingresar</button>
             <button id="btnRegister" class="btnStm" hidden>Registrar</button>
             <p id="pRegister">No tenes usuario ? <span id="spanRegister">Registrate</span></p>
@@ -60,10 +60,22 @@
                 Tu amigo está <label id="dataLabel">"Feliz"</label>
             </label>
         </div>
-
         <div class="box boxImg">
-           <img src="images/corazones.gif" alt="corazones" id="imgCorazones" hidden>
-           <img src="images/giphy.gif" alt="imagen" id="imgAvatar">
+                <input type="radio" name="slider" id="slideOne" checked>
+                <input type="radio" name="slider" id="slideTwo">
+                <input type="radio" name="slider" id="slideThree">
+
+                <div class="buttons">
+                    <label for="slideOne"></label>
+                    <label for="slideTwo"></label>
+                    <label for="slideThree"></label>
+                </div>
+                <div class="content">
+                    <div class="firstSlide"><img src="images/plus.png" alt="imagen" class="imgPlus" id="imgAvatar"></div>
+                    <div class="secondSlide"><img src="images/plus.png" alt="imagen" class="imgPlus"></div>
+                    <div class="thirdSlide"><img src="images/plus.png" alt="imagen" class="imgPlus"></div>
+                </div>
+            <img src="images/corazones.gif" alt="corazones" id="imgCorazones" hidden>
         </div>
 
         <div class="box btnStimuli" id="btns">

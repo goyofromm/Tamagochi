@@ -9,6 +9,9 @@ export class Tamagotchi {
   @PrimaryGeneratedColumn()
   id: number
 
+  @Column()
+  idUser: number;
+
   @Column({unique: true})
   name: string;
 
