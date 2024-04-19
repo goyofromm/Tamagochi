@@ -8,7 +8,8 @@ const btnDrink = document.getElementById("btnDrink")
 const btnRes = document.getElementById("btnRes")
 const btnLogin = document.getElementById("btnLogin")
 const btnRegister = document.getElementById("btnRegister")
-const btnPlus = document.querySelectorAll('.imgPlus');
+const btnOpenPopup = document.querySelectorAll('.btnOpenPopup');
+const btnClosePopup = document.getElementById('btnClosePopup');
 //IMAGENES
 const imgAvatar = document.getElementById("imgAvatar")
 const imgCorazones = document.getElementById("imgCorazones")
@@ -19,10 +20,13 @@ const secUsuario = document.getElementById("tamagotchiSection")
 const userInput = document.getElementById("usernameLogin")
 const passInput = document.getElementById("passwordLogin")
 const repPassInput = document.getElementById("repPasswordLogin")
+const tamNameInput = document.getElementById("tamName")
 //TEXTOS
 const pRegister = document.getElementById("pRegister") //<p>
 const spanRegister = document.getElementById("spanRegister") //<span>
 const titleIndex = document.getElementById("titleIndex") //<h1>
+//POPUP
+const popupModal = document.getElementById("popupModal")
 
 btnLogin.addEventListener('click', function() {
     if (userInput.value.trim().length > 0 && passInput.value.trim().length > 0){
@@ -39,17 +43,13 @@ btnLogin.addEventListener('click', function() {
              return response.text();
          })
          .then(data => {
-            if(data == 0){
+            if(data){
                 console.log('Ingreso correcto');
                 secLogin.style.display = "none"
                 secUsuario.style.display = "flex" //Muestra el section de los tamagotchi del usuario
             }
-            else if(data == 1){ //Ingreso correcto pero no tiene tamagotchis
-                console.log('Ingreso correcto:', data);
-                secLogin.style.display = "none"
-                secUsuario.style.display = "flex" //Muestra el section de los tamagotchi del usuario
-            }
             else{
+                console.log('Ingreso incorrecto');
                 showToast("El usuario o la contraseña son incorrectos")
             }
          })
@@ -61,6 +61,31 @@ btnLogin.addEventListener('click', function() {
         showToast("Complete los datos")
     }
 })
+
+userInput.addEventListener('focus', () => {
+    userInput.removeAttribute('placeholder')
+})
+
+userInput.addEventListener('blur', () => {
+    userInput.setAttribute('placeholder', 'Usuario')
+})
+
+passInput.addEventListener('focus', () => {
+    passInput.removeAttribute('placeholder')
+})
+
+passInput.addEventListener('blur', () => {
+    passInput.setAttribute('placeholder', 'Contraseña')
+})
+
+tamNameInput.addEventListener('focus', () => {
+    tamNameInput.removeAttribute('placeholder')
+})
+
+tamNameInput.addEventListener('blur', () => {
+    tamNameInput.setAttribute('placeholder', 'Nombre')
+})
+
 
 btnRegister.addEventListener('click', function(){
     if(userInput.value.trim().length > 0 && passInput.value.trim().length > 0 && repPassInput.value.trim().length > 0){
@@ -101,18 +126,20 @@ btnRegister.addEventListener('click', function(){
     }
 })
 
-btnPlus.forEach(function(item) {
+btnOpenPopup.forEach(function(item) {
     item.addEventListener('click', function() {
         const src = item.src;
         if( src.substring(src.length - 9) == "/plus.png"){ //Si esta la imagen de +, entonces me abre para crear un tamagotchi
-            showToast("ASD")
+            popupModal.style.display = "flex"
+            popupModal.showModal()
         }
         //Si hay un tamagotchi no hace nada
     });
 });
 
-btnPlus.addEventListener('click', function() {
-    showToast("ASD")
+btnClosePopup.addEventListener('click', function(){
+    popupModal.close()
+    popupModal.style.display = "none"
 })
 
 function backToLogin(){

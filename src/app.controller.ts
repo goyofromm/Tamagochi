@@ -17,25 +17,9 @@ export class AppController {
     //Si retorna 2 es proque el usuario NO exsite
     const user = headers['user'];
     const password = headers['password']; 
-    const USER_NOT_FOUND = 2;
-    const USER_WITHOUT_TAMAGOTCHIS = 1;
-    const USER_WITH_TAMAGOTCHIS = 0;
     
     const res = await this.appService.getUser(user, password);
-    
-    if (res) {
-      // Usuario encontrado
-      if (res.tamagotchiList.length === 0) {
-        //Llamo en el app service para que ponga la lista de tamagotchis vacia        
-        return USER_WITHOUT_TAMAGOTCHIS;
-      } else {
-        //Llamo en el app service para que ponga la lista de tamagotchis cargada
-        return USER_WITH_TAMAGOTCHIS;
-      }
-    } else {
-      // Usuario no encontrado
-      return USER_NOT_FOUND;
-    }
+    return res
   }
 
   @Get('/tam/timer')
