@@ -26,4 +26,8 @@ export class hungryState extends State{
     changeState(): State{
         return new thirstyState();
     }
+
+    revive() : any{
+        return { Status: this.name }
+    }
 }

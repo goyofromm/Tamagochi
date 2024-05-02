@@ -29,4 +29,8 @@ export class sadState extends State{
     changeState(): State{
         return new deadState();
     }
+
+    revive() : any{
+        return { Status: this.name }
+    }
 }

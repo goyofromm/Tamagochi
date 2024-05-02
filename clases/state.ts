@@ -8,4 +8,5 @@ export abstract class State {
   abstract cuddle(tamagotchi: Tamagotchi): string;
   abstract getStateName(): string;
   abstract changeState(): State;
+  abstract revive(tamagotchi: Tamagotchi) : string
 }

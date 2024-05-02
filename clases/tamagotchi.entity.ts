@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { State } from './state';
-import { happyState } from './happyState';
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity({name: 'tamagotchi'})
@@ -10,19 +9,25 @@ export class Tamagotchi {
   id: number
 
   @Column()
-  idUser: number;
+  public idUser: number;
 
-  @Column({unique: true})
+  @Column()
   name: string;
 
   @Column({type: 'varchar'})
   currentState: State;
 
-  @Column()
+  @Column({type: 'datetime', default: () => 'CURRENT_TIMESTAMP'})
   dateCreated: Date;
 
   @Column({default: 3})
   lifes: number;
+
+  @Column()
+  avatar: string;
+
+  @Column()
+  slot: string;
 
   constructor(newState: State, ) {
     this.currentState = newState;
@@ -40,6 +45,7 @@ export class Tamagotchi {
     this.currentState = newState;
 
     console.log("Estado cambiado a " + this.currentState.name)
+    return {Status: this.currentState.name}
   }
 
   feed() {
@@ -55,14 +61,10 @@ export class Tamagotchi {
   }
 
   reviveTamagotchi(){
-    const hs = new happyState();
+    /*const hs = new happyState();
     this.changeState(hs)
-    return {Status: this.currentState.name}
-  }
-
-  Timer() {
-      this.changeState(this.currentState.changeState())
-      return this.currentState.getStateName()
+    return {Status: this.currentState.name}*/
+    return this.currentState.revive(this) 
   }
 
   public setName(name : string): string{

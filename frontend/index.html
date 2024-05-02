@@ -57,11 +57,11 @@
                 <button id="btnChangeName">✍️</button>
             </div>
             <label id="statusMessage">
-                Tu amigo está <label id="dataLabel">"Feliz"</label>
+                Tu amigo está <label id="dataLabel">Feliz</label>
             </label>
         </div>
         <div class="box boxImg">
-                <input type="radio" name="slider" id="slideOne" checked>
+                <input type="radio" name="slider" id="slideOne">
                 <input type="radio" name="slider" id="slideTwo">
                 <input type="radio" name="slider" id="slideThree">
 
@@ -71,9 +71,15 @@
                     <label for="slideThree"></label>
                 </div>
                 <div class="content">
-                    <div class="firstSlide"><img src="images/plus.png" alt="imagen" class="btnOpenPopup" id="imgAvatar"></div>
-                    <div class="secondSlide"><img src="images/plus.png" alt="imagen" class="btnOpenPopup"></div>
-                    <div class="thirdSlide"><img src="images/plus.png" alt="imagen" class="btnOpenPopup"></div>
+                    <div class="firstSlide">
+                        <img src="images/plus.png" alt="imagen" class="btnOpenPopup" id="imgAvatar1">
+                    </div>
+                    <div class="secondSlide">
+                        <img src="images/plus.png" alt="imagen" class="btnOpenPopup" id="imgAvatar2">
+                    </div>
+                    <div class="thirdSlide">
+                        <img src="images/plus.png" alt="imagen" class="btnOpenPopup" id="imgAvatar3">
+                    </div>
                 </div>
             <img src="images/corazones.gif" alt="corazones" id="imgCorazones" hidden>
         </div>
@@ -90,7 +96,32 @@
         <dialog id="popupModal">
             <h1>Nuevo Tamagotchi!!</h1>
             <input type="text" placeholder="Nombre" id="tamName" autocomplete="off">  
-            <input type="image" placeholder="Personaje" id="tamImg" autocomplete="off">  
+            <div class="selectImg">
+                <label id="lblSelectTam" for="imgPopupModal">Seleccionar avatar</label>
+                <img src="images/duende.gif" alt="" id="imgAvatarSelected">
+            </div>
+            
+            <dialog id="imgPopupModal">
+                <div class="imgTamAvatar">
+                    <img class="imgAvatarSelec" src="images/duende.gif" alt="duende">
+                    <img class="imgAvatarSelec" src="images/yeti.gif" alt="yeti">
+                    <img class="imgAvatarSelec" src="images/monstruo.gif" alt="monstruo">
+                    <img class="imgAvatarSelec" src="images/monstruo2.gif" alt="monstruo2">
+                    <img class="imgAvatarSelec" src="images/monstruo3.gif" alt="monstruo3">
+                    <img class="imgAvatarSelec" src="images/monstruo4.gif" alt="monstruo4">
+                    <img class="imgAvatarSelec" src="images/monstruo5.gif" alt="monstruo5">
+                    <img class="imgAvatarSelec" src="images/monstruo6.gif" alt="monstruo6">
+                    <img class="imgAvatarSelec" src="images/monstruo7.gif" alt="monstruo7">
+                    <img class="imgAvatarSelec" src="images/monstruo8.gif" alt="monstruo8">
+                    <img class="imgAvatarSelec" src="images/monstruo9.gif" alt="monstruo9">
+                    <img class="imgAvatarSelec" src="images/monstruo10.gif" alt="monstruo10">
+                </div>
+                <div class="btnPopupModal">
+                    <button id="btnSaveImgPopup" class="btnStm btnNewTam">Guardar</button>
+                    <button id="btnCloseImgPopup" class="btnStm btnNewTam">Cancelar</button>
+                </div>
+                
+            </dialog>
             <div class="btnPopupModal">
                 <button id="btnSavePopup" class="btnStm btnNewTam">Guardar</button>
                 <button id="btnClosePopup" class="btnStm btnNewTam">Cancelar</button>
@@ -98,8 +129,6 @@
             
         </dialog>
     </section>
-
-
     <script src="index.js"></script>
 </body>
 </html>

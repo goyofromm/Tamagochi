@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
+import { User } from '../clases/users/user.entity';
 import { AppService } from './app.service';
 import { Tamagotchi } from '../clases/tamagotchi.entity';
 import { hungryState } from '../clases/hungryState';
@@ -15,14 +16,20 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 describe('AppController', () => {
   let appService: AppService;
 
+  const userRepository = {
+    provide: getRepositoryToken(User),
+    useClass: Repository,
+  };
+  
+  const tamagotchiRepository = {
+    provide: getRepositoryToken(Tamagotchi),
+    useClass: Repository,
+  };
+
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService,            
-        {
-          provide: getRepositoryToken(Tamagotchi),
-          useClass: Repository,
-        }],
+      providers: [AppService, tamagotchiRepository, userRepository],
     }).compile();
 
     appService = app.get<AppService>(AppService);
@@ -32,22 +39,22 @@ describe('AppController', () => {
   describe('HungryState', () => {
     it('should return "Feliz"', () => {
       appService.tamagotchi = new Tamagotchi(new hungryState()); 
-      expect(appService.setState('Feed')).toStrictEqual({Status:"Feliz"});
+      expect(appService.setState('Feed', 1)).toStrictEqual({Status:"Feliz"});
     });
 
     it('should return "Hambriento"', () => {
         appService.tamagotchi = new Tamagotchi(new hungryState()); 
-        expect(appService.setState('Cuddle')).toStrictEqual({Status:"Hambriento"});
+        expect(appService.setState('Cuddle', 1)).toStrictEqual({Status:"Hambriento"});
     });
 
     it('should return "Hambriento"', () => {
         appService.tamagotchi = new Tamagotchi(new hungryState()); 
-        expect(appService.setState('giveWater')).toStrictEqual({Status:"Hambriento"});
+        expect(appService.setState('giveWater', 1)).toStrictEqual({Status:"Hambriento"});
     });
 
     it('should return "Estimulo invalido"', () => {
         appService.tamagotchi = new Tamagotchi(new hungryState()); 
-        expect(appService.setState('asdasdasd')).toBe('Estimulo invalido');
+        expect(appService.setState('asdasdasd', 1)).toBe('Estimulo invalido');
     });
   });
 
@@ -55,22 +62,22 @@ describe('AppController', () => {
   describe('SadState', () => {
     it('should return "Feliz"', () => {
       appService.tamagotchi = new Tamagotchi(new sadState()); 
-      expect(appService.setState('Cuddle')).toStrictEqual({Status:"Feliz"});
+      expect(appService.setState('Cuddle', 1)).toStrictEqual({Status:"Feliz"});
     });
 
     it('should return "Triste"', () => {
         appService.tamagotchi = new Tamagotchi(new sadState()); 
-        expect(appService.setState('Feed')).toStrictEqual({Status:"Triste"});
+        expect(appService.setState('Feed', 1)).toStrictEqual({Status:"Triste"});
     });
 
     it('should return "Triste"', () => {
         appService.tamagotchi = new Tamagotchi(new sadState()); 
-        expect(appService.setState('giveWater')).toStrictEqual({Status:"Triste"});
+        expect(appService.setState('giveWater', 1)).toStrictEqual({Status:"Triste"});
     });
 
     it('should return "Estimulo invalido"', () => {
         appService.tamagotchi = new Tamagotchi(new sadState()); 
-        expect(appService.setState('asdasdasd')).toBe('Estimulo invalido');
+        expect(appService.setState('asdasdasd', 1)).toBe('Estimulo invalido');
     });
 
   });
@@ -78,22 +85,22 @@ describe('AppController', () => {
   describe('HappyState', () => {
     it('should return "Feliz"', () => {
       appService.tamagotchi = new Tamagotchi(new happyState()); 
-      expect(appService.setState('Feed')).toStrictEqual({Status:"Feliz"});
+      expect(appService.setState('Feed', 1)).toStrictEqual({Status:"Feliz"});
     });
 
     it('should return "Feliz"', () => {
         appService.tamagotchi = new Tamagotchi(new happyState()); 
-        expect(appService.setState('giveWater')).toStrictEqual({Status:"Feliz"});
+        expect(appService.setState('giveWater', 1)).toStrictEqual({Status:"Feliz"});
     });
 
     it('should return "Feliz"', () => {
         appService.tamagotchi = new Tamagotchi(new happyState()); 
-        expect(appService.setState('cuddle')).toStrictEqual({Status:"Feliz"});
+        expect(appService.setState('cuddle', 1)).toStrictEqual({Status:"Feliz"});
     });
 
     it('should return "Estimulo invalido"', () => {
         appService.tamagotchi = new Tamagotchi(new happyState()); 
-        expect(appService.setState('sarasa')).toBe('Estimulo invalido');
+        expect(appService.setState('sarasa', 1)).toBe('Estimulo invalido');
     });
 
   });
@@ -101,39 +108,39 @@ describe('AppController', () => {
   describe('thirstyState', () => {
     it('should return "Sediento"', () => {
       appService.tamagotchi = new Tamagotchi(new thirstyState()); 
-      expect(appService.setState('feed')).toStrictEqual({Status:"Sediento"});
+      expect(appService.setState('feed', 1)).toStrictEqual({Status:"Sediento"});
     });
 
     it('should return "Feliz"', () => {
         appService.tamagotchi = new Tamagotchi(new thirstyState()); 
-        expect(appService.setState('giveWater')).toStrictEqual({Status:"Feliz"});
+        expect(appService.setState('giveWater', 1)).toStrictEqual({Status:"Feliz"});
     });
 
     it('should return "Sediento"', () => {
         appService.tamagotchi = new Tamagotchi(new thirstyState()); 
-        expect(appService.setState('cuddle')).toStrictEqual({Status:"Sediento"});
+        expect(appService.setState('cuddle', 1)).toStrictEqual({Status:"Sediento"});
     });
 
     it('should return "Estimulo invalido"', () => {
         appService.tamagotchi = new Tamagotchi(new thirstyState()); 
-        expect(appService.setState('buscando money')).toBe('Estimulo invalido');
+        expect(appService.setState('buscando money', 1)).toBe('Estimulo invalido');
     });
   });
 
   describe('deadState', () => {
     it('should return "Sediento"', () => {
       appService.tamagotchi = new Tamagotchi(new deadState()); 
-      expect(appService.setState('feed')).toStrictEqual({Status:"Muerto"});
+      expect(appService.setState('feed', 1)).toStrictEqual({Status:"Muerto"});
     });
 
     it('should return "Feliz"', () => {
         appService.tamagotchi = new Tamagotchi(new deadState()); 
-        expect(appService.setState('giveWater')).toStrictEqual({Status:"Muerto"});
+        expect(appService.setState('giveWater', 1)).toStrictEqual({Status:"Muerto"});
     });
 
     it('should return "Sediento"', () => {
         appService.tamagotchi = new Tamagotchi(new deadState()); 
-        expect(appService.setState('cuddle')).toStrictEqual({Status:"Muerto"});
+        expect(appService.setState('cuddle', 1)).toStrictEqual({Status:"Muerto"});
     });
 
     it('should return "Sediento"', () => {
@@ -143,7 +150,7 @@ describe('AppController', () => {
 
     it('should return "Estimulo invalido"', () => {
         appService.tamagotchi = new Tamagotchi(new deadState()); 
-        expect(appService.setState('buscando money')).toBe('Estimulo invalido');
+        expect(appService.setState('buscando money', 1)).toBe('Estimulo invalido');
     });
   });
 

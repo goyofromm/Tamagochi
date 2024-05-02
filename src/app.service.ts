@@ -1,13 +1,14 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-//import { hungryState } from '../clases/hungryState';
-//import { sadState } from '../clases/sadState';
-//import { thirstyState } from '../clases/thirstyState';
 import { happyState } from '../clases/happyState';
 import { Tamagotchi } from '../clases/tamagotchi.entity';
 import { Repository } from 'typeorm';
-import { User } from 'clases/users/user.entity';
+import { User } from '../clases/users/user.entity';
+import { thirstyState } from '../clases/thirstyState';
+import { hungryState } from '../clases/hungryState';
+import { sadState } from '../clases/sadState';
+import { deadState } from '../clases/deadState';
 
 
 @Injectable()
@@ -21,7 +22,7 @@ export class AppService {
   pUser = new User()
   tamagotchi = new Tamagotchi(new happyState()); //Arranca feliz
 
-  setState(stimuli: string): string {
+  async setState(stimuli: string, idTam: number) : Promise<string> {
     let response
     if(stimuli.toLowerCase() == 'Feed'.toLowerCase()){
       response = this.tamagotchi.feed()
@@ -38,6 +39,28 @@ export class AppService {
     else{
       response = 'Estimulo invalido'
     }
+    if(response != 'Estimulo invalido'){
+      await this.tamRepository.update({ id: idTam }, { currentState: response.Status })
+    }
+    return response
+  }
+
+  async Timer(idTam: number, currentState: string) {
+    if(currentState == 'Feliz')
+      this.tamagotchi.currentState = new happyState()
+    else if(currentState == 'Hambriento')
+      this.tamagotchi.currentState = new hungryState()
+    else if(currentState == 'Sediento')
+      this.tamagotchi.currentState = new thirstyState()
+    else if(currentState == 'Triste')
+      this.tamagotchi.currentState = new sadState()
+    else if(currentState == 'Muerto')
+      this.tamagotchi.currentState = new deadState()
+
+    const response : any = await this.tamagotchi.changeState(this.tamagotchi.currentState.changeState())
+    if(response){
+      await this.tamRepository.update({ id: idTam }, { currentState: response.Status })
+    }
     return response
   }
 
@@ -51,6 +74,12 @@ export class AppService {
   createUser(user: User){
     const newUser = this.userRepository.create(user);
     return this.userRepository.save(newUser);
+  }
+
+  createTam(tam: Tamagotchi){
+    tam.idUser = this.pUser.id
+    const newTam = this.tamRepository.create(tam);
+    return this.tamRepository.save(newTam);
   }
 
   async getUser(username, password){

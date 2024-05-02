@@ -15,7 +15,10 @@ export class deadState extends State{
         console.log('No pasa nada')        
         return { Status: this.name }
     }
-
+    revive():any{
+        console.log('REVIVIO!')        
+        return { Status: 'Feliz' }
+    }
     getStateName(): any {
         return { Status: this.name }
     }

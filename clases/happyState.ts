@@ -3,6 +3,7 @@ import { State } from "./state";
 import { hungryState } from "./hungryState";
 export class happyState extends State{
     public name = 'Feliz'
+
     feed(): any{
         console.log('No pasa nada')    
         return { Status: this.name }
@@ -23,6 +24,8 @@ export class happyState extends State{
     changeState(): State{
         return new hungryState();
     }
-}
 
-//Se pone feliz -- No pasa natii --- beep beep beep beep beep
+    revive() : any{
+        return { Status: this.name }
+    }
+}
