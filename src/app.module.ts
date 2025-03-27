@@ -11,7 +11,7 @@ import { User } from 'clases/users/user.entity';
     type: "mysql",
     username: "root",
     host: "localhost",
-    password: "$Bidcom123",
+    password: "42201543",
     port: 3306,
     database: "tamagotchi_game",
     autoLoadEntities: true,
